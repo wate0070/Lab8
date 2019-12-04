@@ -1,0 +1,60 @@
+﻿@model Lab5.Models.DataAccess.AcademicRecord[]
+
+@{
+    ViewData["Title"] = "EditAll";
+}
+
+<h1>EditAll</h1>
+
+<form asp-action="EditAll" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    
+                    <a asp-action="EditAll" asp-controller="AcademicRecords" asp-route-sorter="student">Students</a>
+                </th>
+                <th>
+                    <a asp-action="EditAll" asp-controller="AcademicRecords" asp-route-sorter="course">Courses</a>
+                </th>
+                <th>
+                    <a asp-action="EditAll" asp-controller="AcademicRecords" asp-route-sorter="grade">Grades</a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int counter = 0;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.Id)
+                        -
+                        @Html.DisplayFor(modelItem => item.Student.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseCodeNavigation.Code)
+                        -
+                        @Html.DisplayFor(modelItem => item.CourseCodeNavigation.Title)
+                    </td>
+
+                    <td>
+                        <input type="hidden" asp-for="@Model[counter].CourseCode" class="form-control" />
+                        <input type="hidden" asp-for="@Model[counter].StudentId" class="form-control" />
+                        <input asp-for="@Model[counter].Grade" class="form-control" />
+                    </td>
+
+
+                </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+    <div>
+        <button type="submit">Save</button>
+        <a asp-controller="AcademicRecords" asp-action="Index">Cancel</a>
+    </div>
+</form>
+
+
